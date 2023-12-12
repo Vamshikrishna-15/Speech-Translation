@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Translation Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Voice Translation Web App</h1>
+        <div>
+            <h3>User Input</h3>
+            <p id="user-input"></p>
+        </div>
+        <div>
+            <h3>Detected Language</h3>
+            <p id="detected-lang"></p>
+        </div>
+        <div>
+            <!-- <h3>Detected Text</h3> -->
+            <p id="detected-text"></p>
+        </div>
+        <div>
+            <h3>Translation</h3>
+            <p id="translated-text"></p>
+        </div>
+        
+        <div>
+            <h3>Translated Voice</h3>
+            <audio controls id="translated-voice">
+                <source src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div id="loading">Loading...</div>
+        <div id="message-box"></div>
+        
+        <button onclick="record()">Record</button>
+    </div>
+
+    <script>
+            // Function to display messages in the message box
+            function showMessage(message, isError = false) {
+                const messageBoxElement = document.getElementById('message-box');
+                messageBoxElement.textContent = message;
+                if (isError) {
+                    messageBoxElement.classList.add('error');
+                } else {
+                    messageBoxElement.classList.remove('error');
+                }
+            }
+        // Define the messageBoxElement
+        const messageBoxElement = document.getElementById('message-box');
+
+        function takeCommand() {
+                showMessage('Listening...');
+            }
+           
+        function record() {
+
+            const userInputElement = document.getElementById('user-input');
+            const detectedLangElement = document.getElementById('detected-lang');
+            const detectedTextElement = document.getElementById('detected-text');
+            const translatedTextElement = document.getElementById('translated-text');
+            const translatedVoiceElement = document.getElementById('translated-voice');
+            // Show loading indicator while processing voice
+            const loadingElement = document.getElementById('loading');
+            loadingElement.style.display = 'block';
+            // Show "Recognizing..." message during the recognition process
+            showMessage('Recognizing... (Please wait)');
+           
+
+            userInputElement.textContent = "Listening...";
+            detectedLangElement.textContent = "";
+            detectedTextElement.textContent = "";
+            translatedTextElement.textContent = "";
+            translatedVoiceElement.pause();
+
+
+            fetch('/record', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                userInputElement.textContent = `User Input: ${data.detected_text}`;
+                detectedLangElement.textContent = `Detected Language: ${data.detected_lang}`;
+                //detectedTextElement.textContent = `Detected Text: ${data.detected_text}`;
+                translatedTextElement.textContent = `Translation: ${data.translated_text}`;
+                // Update the audio file source with the new filename
+                translatedVoiceElement.src = `/static/${data.audio_file}`;
+                // Show the translated voice section
+                translatedVoiceElement.style.display = 'block';
+                // Hide the loading indicator
+                loadingElement.style.display = 'none';
+                // Clear the message box
+                messageBoxElement.textContent = '';
+                // Hide the loading indicator
+                loadingElement.style.display = 'none';
+                // Clear the message box
+                showMessage('');
+                // Play the translated voice
+                translatedVoiceElement.play();
+                
+            })
+            
+            .catch(error => {
+                // Show error message in the message box
+                showMessage('Error: ' + error.message, true);
+                // Show error message in the message box
+                messageBoxElement.textContent = 'Error: ' + error.message;
+                // Hide the loading indicator
+                loadingElement.style.display = 'none';
+                // Hide the translated voice section
+                translatedVoiceElement.style.display = 'none';
+                // Clear the detected language, detected text, and translated text
+                detectedLangElement.textContent = '';
+                //detectedTextElement.textContent = '';
+                translatedTextElement.textContent = '';
+            });
+            // Show loading indicator while processing voice
+            loadingElement.style.display = 'block';
+            // Hide the translated voice section
+            translatedVoiceElement.style.display = 'none';
+            // Clear the detected language, detected text, and translated text
+            detectedLangElement.textContent = '';
+            //detectedTextElement.textContent = '';
+            translatedTextElement.textContent = '';
+           
+        }
+    </script>
+</body>
+</html>

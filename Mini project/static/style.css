@@ -1,0 +1,163 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styles */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Input styles */
+p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+#user-input,
+#detected-lang,
+#translated-text {
+  font-weight: bold;
+}
+
+/* Loading indicator */
+#loading {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  color: #007bff;
+}
+
+/* Translated voice section */
+#translated-voice {
+  display: none;
+  margin-top: 20px;
+}
+
+/* Message box styles */
+#message-box {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.success {
+  color: #28a745;
+}
+
+/* Additional styles for an attractive layout */
+#user-input,
+#detected-lang,
+/* #detected-text, */
+#translated-text {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+/* Styling the record button */
+button {
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Styling for the detected language and translated text sections */
+#detected-lang,
+#translated-text {
+  margin-top: 10px;
+}
+
+/* Styling for the audio player */
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Styling for the loading indicator */
+#loading {
+  font-size: 16px;
+}
+
+/* Styling for the message box */
+#message-box {
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+/* Styling for the header */
+h1 {
+  color: #007bff;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+/* Styling for the container */
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+/* Centering the container */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  /* Adjusting padding and font-size for smaller screens */
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  /* Styling the audio player for smaller screens */
+  audio {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
